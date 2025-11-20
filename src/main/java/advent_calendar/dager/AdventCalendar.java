@@ -1,6 +1,8 @@
 package advent_calendar.dager;
 
 import advent_calendar.dager.command.AdventCalendarMainCommand;
+import advent_calendar.dager.command.AdventCalendarReloadCommand;
+import me.lucko.fabric.api.permissions.v0.Permissions;
 import advent_calendar.dager.util.JsonClaimedGiftsRepository;
 import advent_calendar.dager.util.JsonConfigRepository;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
@@ -28,9 +30,18 @@ public class AdventCalendar implements ModInitializer {
         claimedGiftsRepo = new JsonClaimedGiftsRepository(Paths.get("advent-calendar/claimed_gifts.json"));
         CommandRegistrationCallback.EVENT.register(
             (dispatcher, commandRegistryAccess, registrationEnvironment) -> dispatcher.register(
-            Commands.literal("calendar")
-            .executes(AdventCalendarMainCommand::run))
+                Commands.literal("calendar")
+                .executes(AdventCalendarMainCommand::run)
+            )
         );
+        CommandRegistrationCallback.EVENT.register(
+            (dispatcher, commandRegistryAccess, registrationEnvironment) -> dispatcher.register(
+                Commands.literal("calendar_reload")
+                .requires(Permissions.require(MOD_ID + ".command.reload_config", 4))
+                .executes(AdventCalendarReloadCommand::run)
+            )
+        );
+
         ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
             try {
                 claimedGiftsRepo.save();

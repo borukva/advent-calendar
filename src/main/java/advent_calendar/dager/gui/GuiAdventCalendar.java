@@ -7,16 +7,14 @@ import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 
-public class GUIAdventCalendar extends SimpleGui {
+public class GuiAdventCalendar extends SimpleGui {
     public int SIZE = 9 * 5;
 
-    public GUIAdventCalendar(ServerPlayer player) {
+    public GuiAdventCalendar(ServerPlayer player) {
         super(MenuType.GENERIC_9x5, player, false);
         this.setTitle(Component.translatable("advent_calendar.title"));
         this.update();
@@ -35,21 +33,27 @@ public class GUIAdventCalendar extends SimpleGui {
         int day_id = id % 9 + 7 * (int) Math.floor((double) id / 9);
 
         var reward = Calendar.getDay(day_id, this.player);
-        if ((id % 9 == 0 | id % 9 == 8) | (reward == null)){
+
+        // set sides of GUI and missing days to glass
+        if ((id % 9 == 0 || id % 9 == 8) | (reward == null)){
             return new GuiElementBuilder(Items.CYAN_STAINED_GLASS_PANE).setName(Component.empty());
         }
 
         var element = new GuiElementBuilder(Items.PLAYER_HEAD)
             .setName(Component.translatable(reward.name()))
-            .setSkullOwner(reward.head_texture());
+            .setSkullOwner(reward.headTexture());
 
         if (reward.lore() != null) element.addLoreLine(Component.translatable(reward.lore()));
         if (reward.item() != null) {
             element.setCallback((index, type1, action) -> {
-                this.player.getInventory().add(reward.item());
                 try {
                     AdventCalendar.claimedGiftsRepo.addClaimedGift(player.getUUID(), day_id);
-                } catch (IOException ignored) {}
+                    this.player.getInventory().add(reward.item());
+                } catch (IOException exception) {
+                    AdventCalendar.LOGGER.error(
+                        "Error during claiming reward for player {}", player.getUUID(), exception
+                    );
+                }
                 this.update();
             });
         }

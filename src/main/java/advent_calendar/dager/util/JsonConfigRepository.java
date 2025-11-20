@@ -1,10 +1,7 @@
 package advent_calendar.dager.util;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
@@ -32,14 +29,14 @@ public class JsonConfigRepository {
     }
 
     public boolean getAllowExpired() {
-        return this.config.allow_expired;
+        return this.config.allowExpired;
     }
 
     public @Nullable Reward getReward(int day) {
         return this.config.rewards.get(Integer.toString(day));
     }
 
-    private void load() {
+    public void load() {
         try {
             if (Files.exists(filePath)) {
                 var content = Files.readString(filePath);
@@ -53,6 +50,6 @@ public class JsonConfigRepository {
         }
     }
 
-    public record Config(boolean allow_expired, int year, int month, Map<String, Reward> rewards) {}
+    public record Config(boolean allowExpired, int year, int month, Map<String, Reward> rewards) {}
     public record Reward(String item, int count, @Nullable String lore) {}
 }

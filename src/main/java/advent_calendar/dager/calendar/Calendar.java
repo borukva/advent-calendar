@@ -74,5 +74,5 @@ public class Calendar {
         }
     }
 
-    public record DayReward(String head_texture, String name, @Nullable ItemStack item, @Nullable String lore) {}
+    public record DayReward(String headTexture, String name, @Nullable ItemStack item, @Nullable String lore) {}
 }

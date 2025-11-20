@@ -17,21 +17,8 @@
 	"entrypoints": {
 		"main": [
 			"advent_calendar.dager.AdventCalendar"
-		],
-		"client": [
-			"advent_calendar.dager.AdventCalendarClient"
-		],
-		"fabric-datagen": [
-			"advent_calendar.dager.AdventCalendarDataGenerator"
 		]
 	},
-	"mixins": [
-		"advent-calendar.mixins.json",
-		{
-			"config": "advent-calendar.client.mixins.json",
-			"environment": "client"
-		}
-	],
 	"depends": {
 		"fabricloader": ">=0.17.3",
 		"minecraft": "~1.21.8",

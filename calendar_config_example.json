@@ -1,5 +1,5 @@
 {
-  "allow_expired": true,
+  "allowExpired": true,
   "year": 2025,
   "month": 11,
   "rewards": {

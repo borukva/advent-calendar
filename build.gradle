@@ -59,8 +59,8 @@ dependencies {
     modImplementation "eu.pb4:polymer-autohost:${project.polymer_version}"
     modImplementation include('eu.pb4:factorytools:0.8.2+1.21.10')
 
-    // sgui
     modImplementation include("eu.pb4:sgui:${project.sgui_version}")
+    modImplementation "me.lucko:fabric-permissions-api:${project.permissions_api_version}"
 
 }
 

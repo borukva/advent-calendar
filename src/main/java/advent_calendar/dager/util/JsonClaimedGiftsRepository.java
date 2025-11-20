@@ -37,7 +37,7 @@ public class JsonClaimedGiftsRepository {
         this.save();
     }
 
-    private void load() {
+    public void load() {
         try {
             if (Files.exists(filePath)) {
                 var content = Files.readString(filePath);
