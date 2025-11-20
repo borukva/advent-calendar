@@ -1,0 +1,7 @@
+{
+  "advent_calendar.title": "Адвент Календар",
+  "advent_calendar.gift_available": "Доступний подарунок!",
+  "advent_calendar.gift_unavailable": "Подарунок недоступний",
+  "advent_calendar.gift_claimed": "Подарунок вже отримано",
+  "advent_calendar.gift_not_yet_available": "Ще не час"
+}

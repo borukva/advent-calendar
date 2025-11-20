@@ -7,7 +7,7 @@ import net.minecraft.commands.CommandSourceStack;
 public class AdventCalendarMainCommand {
     public static int run(CommandContext<CommandSourceStack> context) {
         GUIAdventCalendar gui = new GUIAdventCalendar(context.getSource().getPlayer());
-        gui.display();
+        gui.open();
         return 0;
     }
 }

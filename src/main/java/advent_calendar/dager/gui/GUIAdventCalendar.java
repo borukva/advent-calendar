@@ -1,51 +1,59 @@
 package advent_calendar.dager.gui;
 
+import advent_calendar.dager.AdventCalendar;
+import advent_calendar.dager.calendar.Calendar;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.IOException;
 
 public class GUIAdventCalendar extends SimpleGui {
     public int SIZE = 9 * 5;
 
     public GUIAdventCalendar(ServerPlayer player) {
         super(MenuType.GENERIC_9x5, player, false);
-        this.setTitle(Component.literal("Advent Calendar"));
+        this.setTitle(Component.translatable("advent_calendar.title"));
+        this.update();
     }
 
-    public void display() {
+    private void update() {
         for (int i = 0; i < SIZE; i++) {
             var element = this.getElement(i);
-            if (element == null) {
-                element = ItemStack.EMPTY;
+            if (element != null) {
+                this.setSlot(i, element);
             }
-            var id = ResourceLocation.parse("minecraft:diamond");
-            var item = BuiltInRegistries.ITEM.get(id);
-            if (item.isEmpty()) {
-                return;
-            }
-            var stack = new ItemStack(item.get());
-            this.setSlot(
-                i,
-                new GuiElementBuilder(element)
-                    .addLoreLine(Component.literal("Ya ebal"))
-                    .setCallback((index, type1, action) -> {
-                        this.player.getInventory().add(stack);
-                    })
-            );
         }
-        this.open();
     }
 
-    protected ItemStack getElement(int id) {
-        if (!(id % 9 == 0 | id % 9 == 8)) {
-            return null;
+    private GuiElementBuilder getElement(int id) {
+        int day_id = id % 9 + 7 * (int) Math.floor((double) id / 9);
+
+        var reward = Calendar.getDay(day_id, this.player);
+        if ((id % 9 == 0 | id % 9 == 8) | (reward == null)){
+            return new GuiElementBuilder(Items.CYAN_STAINED_GLASS_PANE).setName(Component.empty());
         }
-        return Items.CYAN_STAINED_GLASS_PANE.getDefaultInstance();
+
+        var element = new GuiElementBuilder(Items.PLAYER_HEAD)
+            .setName(Component.translatable(reward.name()))
+            .setSkullOwner(reward.head_texture());
+
+        if (reward.lore() != null) element.addLoreLine(Component.translatable(reward.lore()));
+        if (reward.item() != null) {
+            element.setCallback((index, type1, action) -> {
+                this.player.getInventory().add(reward.item());
+                try {
+                    AdventCalendar.claimedGiftsRepo.addClaimedGift(player.getUUID(), day_id);
+                } catch (IOException ignored) {}
+                this.update();
+            });
+        }
+
+        return element;
     }
 }
