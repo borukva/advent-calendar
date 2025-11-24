@@ -1,10 +1,10 @@
-package advent_calendar.dager;
+package ua.dager.advent_calendar;
 
-import advent_calendar.dager.command.AdventCalendarMainCommand;
-import advent_calendar.dager.command.AdventCalendarReloadCommand;
+import ua.dager.advent_calendar.command.AdventCalendarMainCommand;
+import ua.dager.advent_calendar.command.AdventCalendarReloadCommand;
 import me.lucko.fabric.api.permissions.v0.Permissions;
-import advent_calendar.dager.util.JsonClaimedGiftsRepository;
-import advent_calendar.dager.util.JsonConfigRepository;
+import ua.dager.advent_calendar.util.JsonClaimedGiftsRepository;
+import ua.dager.advent_calendar.util.JsonConfigRepository;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.api.ModInitializer;

@@ -1,6 +1,6 @@
-package advent_calendar.dager.command;
+package ua.dager.advent_calendar.command;
 
-import advent_calendar.dager.gui.GuiAdventCalendar;
+import ua.dager.advent_calendar.gui.GuiAdventCalendar;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 

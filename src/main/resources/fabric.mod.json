@@ -8,24 +8,23 @@
 		"Me!"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/borukva/advent-calendar"
 	},
-	"license": "CC0-1.0",
+	"license": "ARR",
 	"icon": "assets/advent-calendar/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"advent_calendar.dager.AdventCalendar"
+          "ua.dager.advent_calendar.AdventCalendar"
 		]
 	},
 	"depends": {
 		"fabricloader": ">=0.17.3",
 		"minecraft": "~1.21.8",
 		"java": ">=21",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"polymer-core": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
 	}
 }

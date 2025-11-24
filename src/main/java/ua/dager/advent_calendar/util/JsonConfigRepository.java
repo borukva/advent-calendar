@@ -1,4 +1,4 @@
-package advent_calendar.dager.util;
+package ua.dager.advent_calendar.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

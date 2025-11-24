@@ -1,7 +1,7 @@
-package advent_calendar.dager.calendar;
+package ua.dager.advent_calendar.calendar;
 
-import advent_calendar.dager.AdventCalendar;
-import advent_calendar.dager.util.HeadTextures;
+import ua.dager.advent_calendar.AdventCalendar;
+import ua.dager.advent_calendar.util.HeadTextures;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;

@@ -1,7 +1,7 @@
-package advent_calendar.dager.gui;
+package ua.dager.advent_calendar.gui;
 
-import advent_calendar.dager.AdventCalendar;
-import advent_calendar.dager.calendar.Calendar;
+import ua.dager.advent_calendar.AdventCalendar;
+import ua.dager.advent_calendar.calendar.Calendar;
 import eu.pb4.sgui.api.elements.GuiElementBuilder;
 import eu.pb4.sgui.api.gui.SimpleGui;
 import net.minecraft.network.chat.Component;
