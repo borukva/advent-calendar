@@ -1,4 +1,4 @@
-package ua.dager.advent_calendar.util;
+package ua.dager.adventcalendar.util;
 
 public class HeadTextures {
     public static final String GIFT_NOT_YET_AVAILABLE = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjVjOWQzMTc0M2Y0ZDM2YzVhODkxN2ExODE5ZjJmYWUwYWIwODM4MjJlNGZhYmYxNmU4ODkxMjgxMWU2NzZlMCJ9fX0";

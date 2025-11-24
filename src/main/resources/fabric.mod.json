@@ -15,7 +15,7 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-          "ua.dager.advent_calendar.AdventCalendar"
+          "ua.dager.adventcalendar.AdventCalendar"
 		]
 	},
 	"depends": {
