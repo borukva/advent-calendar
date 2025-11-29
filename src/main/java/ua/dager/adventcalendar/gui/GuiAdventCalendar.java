@@ -44,11 +44,11 @@ public class GuiAdventCalendar extends SimpleGui {
             .setSkullOwner(reward.headTexture());
 
         if (reward.lore() != null) element.addLoreLine(Component.translatable(reward.lore()));
-        if (reward.item() != null) {
+        if (reward.callback() != null) {
             element.setCallback((index, type1, action) -> {
                 try {
                     AdventCalendar.claimedGiftsRepo.addClaimedGift(player.getUUID(), day_id);
-                    this.player.getInventory().add(reward.item());
+                    reward.callback().run();
                 } catch (IOException exception) {
                     AdventCalendar.LOGGER.error(
                         "Error during claiming reward for player {}", player.getUUID(), exception

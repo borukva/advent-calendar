@@ -2,9 +2,12 @@ package ua.dager.adventcalendar.config;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
+import org.jetbrains.annotations.Nullable;
 import ua.dager.adventcalendar.AdventCalendar;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.zip.ZipFile;
 
@@ -18,14 +21,27 @@ public class ModConfigs {
             var container = FabricLoader.getInstance().getModContainer(AdventCalendar.MOD_ID).orElseThrow();
             try {
                 var modJarPath = container.getOrigin().getPaths().getFirst();
-                var zip = new ZipFile(modJarPath.toFile());
-                var entry = zip.getEntry("assets/advent-calendar/demo-configs/calendar_config.json");
-                var in = zip.getInputStream(entry);
+                InputStream in;
+                @Nullable ZipFile zip = null;
+                if (Files.isDirectory(modJarPath)) {
+                    // 💡 Dev environment — read directly from the expanded resources folder
+                    var file = modJarPath
+                        .getParent()
+                        .getParent()
+                        .getParent()
+                        .resolve("resources/main")
+                        .resolve("assets/advent-calendar/demo-configs/calendar_config.json");
+                    in = Files.newInputStream(file);
+                } else {
+                    zip = new ZipFile(modJarPath.toFile());
+                    var entry = zip.getEntry("assets/advent-calendar/demo-configs/calendar_config.json");
+                    in = zip.getInputStream(entry);
+                }
                 AdventCalendar.configRepo = new JsonConfigRepository(
                     Paths.get("config/advent-calendar/calendar_config.json"),
                     in
                 );
-                zip.close();
+                if (zip != null) zip.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

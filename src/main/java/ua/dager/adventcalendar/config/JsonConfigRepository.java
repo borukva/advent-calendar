@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class JsonConfigRepository {
@@ -34,7 +35,7 @@ public class JsonConfigRepository {
         return this.config.allowExpired;
     }
 
-    public @Nullable Reward getReward(int day) {
+    public @Nullable JsonConfigRepository.DayReward getReward(int day) {
         return this.config.rewards.get(Integer.toString(day));
     }
 
@@ -58,6 +59,8 @@ public class JsonConfigRepository {
         }
     }
 
-    public record Config(boolean allowExpired, int year, int month, Map<String, Reward> rewards) {}
-    public record Reward(String item, int count, @Nullable String lore) {}
+    public record Config(boolean allowExpired, int year, int month, Map<String, DayReward> rewards) {}
+    public record DayReward(ArrayList<Reward> rewards, @Nullable String lore) {}
+    public record Reward(RewardType type, String command) {}
+    enum RewardType {command}
 }
