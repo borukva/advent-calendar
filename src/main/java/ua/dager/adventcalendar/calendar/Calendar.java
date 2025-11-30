@@ -37,7 +37,7 @@ public class Calendar {
                 HeadTextures.GIFT_CLAIMED,
                 "advent_calendar.gift_claimed",
                 null,
-                reward.lore()
+                reward.claimedLore() != null ? reward.claimedLore() : reward.lore()
             );
         }
 

@@ -60,7 +60,7 @@ public class JsonConfigRepository {
     }
 
     public record Config(boolean allowExpired, int year, int month, Map<String, DayReward> rewards) {}
-    public record DayReward(ArrayList<Reward> rewards, @Nullable String lore) {}
+    public record DayReward(ArrayList<Reward> rewards, @Nullable String lore, @Nullable String claimedLore) {}
     public record Reward(RewardType type, String command) {}
     enum RewardType {command}
 }

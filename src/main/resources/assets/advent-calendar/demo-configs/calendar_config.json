@@ -50,7 +50,8 @@
         "type": "command",
         "command": "give %player% minecraft:diamond 1"
       }],
-      "lore": "пососеш) ок?"
+      "lore": "пососеш) ок?",
+      "claimedLore": "пасасав"
     },
     "9": {
       "rewards": [{
