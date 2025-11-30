@@ -1,7 +1,7 @@
 {
   "allowExpired": true,
   "year": 2025,
-  "month": 11,
+  "month": 12,
   "rewards": {
     "1": {
       "rewards": [{
@@ -180,6 +180,12 @@
       }]
     },
     "30": {
+      "rewards": [{
+        "type": "command",
+        "command": "give %player% minecraft:diamond 1"
+      }]
+    },
+    "31": {
       "rewards": [{
         "type": "command",
         "command": "give %player% minecraft:diamond 1"
