@@ -12,6 +12,7 @@ public class AdventCalendarReloadCommand {
         try {
             AdventCalendar.claimedGiftsRepo.save();
             AdventCalendar.claimedGiftsRepo.load();
+            AdventCalendar.LOGGER.info("Configs reloaded successfully");
         } catch (IOException exception) {
             AdventCalendar.LOGGER.error(
                 "Error during reloading config {}", String.valueOf(exception)
