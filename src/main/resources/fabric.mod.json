@@ -16,7 +16,10 @@
 	"entrypoints": {
 		"main": [
           "ua.dager.adventcalendar.AdventCalendar"
-		]
+		],
+        "fabric-datagen": [
+          "ua.dager.adventcalendar.ModDataGenerator"
+        ]
 	},
 	"depends": {
 		"fabricloader": ">=0.17.2",

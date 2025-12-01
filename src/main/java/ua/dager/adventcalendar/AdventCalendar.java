@@ -1,5 +1,6 @@
 package ua.dager.adventcalendar;
 
+import net.minecraft.resources.ResourceLocation;
 import ua.dager.adventcalendar.command.ModCommands;
 import ua.dager.adventcalendar.config.JsonClaimedGiftsRepository;
 import ua.dager.adventcalendar.config.JsonConfigRepository;
@@ -9,6 +10,8 @@ import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.dager.adventcalendar.config.ModConfigs;
+import ua.dager.adventcalendar.datagen.ui.GuiTextures;
+import ua.dager.adventcalendar.datagen.ui.UiResourceCreator;
 import ua.dager.adventcalendar.util.ModPlaceholders;
 
 public class AdventCalendar implements ModInitializer {
@@ -20,6 +23,9 @@ public class AdventCalendar implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+        GuiTextures.register();
+        UiResourceCreator.setup();
+
         ModConfigs.register();
 
         ModCommands.register();
@@ -29,4 +35,9 @@ public class AdventCalendar implements ModInitializer {
         PolymerResourcePackUtils.addModAssets(MOD_ID);
         PolymerResourcePackUtils.markAsRequired();
 	}
+
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    }
+
 }

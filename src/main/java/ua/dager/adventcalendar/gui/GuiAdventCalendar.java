@@ -8,6 +8,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Items;
+import ua.dager.adventcalendar.datagen.ui.GuiTextures;
+import ua.dager.adventcalendar.util.Utils;
 
 import java.io.IOException;
 import java.util.stream.Collectors;
@@ -17,7 +19,7 @@ public class GuiAdventCalendar extends SimpleGui {
 
     public GuiAdventCalendar(ServerPlayer player) {
         super(MenuType.GENERIC_9x5, player, false);
-        this.setTitle(Component.translatable("advent_calendar.title"));
+        this.setTitle(GuiTextures.CALENDAR_MENU.apply(Utils.formatDisplayName("Advent Calendar")));
         this.update();
     }
 
@@ -35,10 +37,8 @@ public class GuiAdventCalendar extends SimpleGui {
 
         var reward = Calendar.getDay(day_id, this.player);
 
-        // set sides of GUI and missing days to glass
-        if ((id % 9 == 0 || id % 9 == 8) | (reward == null)){
-            return new GuiElementBuilder(Items.CYAN_STAINED_GLASS_PANE).setName(Component.empty());
-        }
+        if ((id % 9 == 0 || id % 9 == 8) | (reward == null))
+            return null;
 
         var element = new GuiElementBuilder(Items.PLAYER_HEAD)
             .setName(Component.translatable(reward.name()))
