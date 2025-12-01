@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Calendar {
@@ -86,5 +87,5 @@ public class Calendar {
         }
     }
 
-    public record DayReward(String headTexture, String name, @Nullable Runnable callback, @Nullable String lore) {}
+    public record DayReward(String headTexture, String name, @Nullable Runnable callback, @Nullable ArrayList<String> lore) {}
 }

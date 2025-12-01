@@ -10,6 +10,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Items;
 
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 public class GuiAdventCalendar extends SimpleGui {
     public int SIZE = 9 * 5;
@@ -43,7 +44,10 @@ public class GuiAdventCalendar extends SimpleGui {
             .setName(Component.translatable(reward.name()))
             .setSkullOwner(reward.headTexture());
 
-        if (reward.lore() != null) element.addLoreLine(Component.translatable(reward.lore()));
+        if (reward.lore() != null)
+            element.setLore(
+                reward.lore().stream().map(Component::translatable).collect(Collectors.toUnmodifiableList())
+            );
         if (reward.callback() != null) {
             element.setCallback((index, type1, action) -> {
                 try {
