@@ -9,6 +9,9 @@ classes/
 
 *.launch
 
+
+src/main/generated/cache
+
 # idea
 
 .idea/
