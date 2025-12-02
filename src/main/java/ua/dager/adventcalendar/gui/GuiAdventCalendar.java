@@ -15,11 +15,11 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 
 public class GuiAdventCalendar extends SimpleGui {
-    public int SIZE = 9 * 5;
+    public int SIZE = 9 * 6;
 
     public GuiAdventCalendar(ServerPlayer player) {
-        super(MenuType.GENERIC_9x5, player, false);
-        this.setTitle(GuiTextures.CALENDAR_MENU.apply(Utils.formatDisplayName("Advent Calendar")));
+        super(MenuType.GENERIC_9x6, player, false);
+        this.setTitle(GuiTextures.CALENDAR_MENU.apply(Utils.formatDisplayName("")));
         this.update();
     }
 
