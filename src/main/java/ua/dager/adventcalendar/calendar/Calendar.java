@@ -81,7 +81,7 @@ public class Calendar {
             for (var r : reward.rewards()) {
                 var msg = Placeholders.parseText(Component.literal(r.command()), placeholder_context)
                     .getString()
-                    .replaceFirst("/", "");
+                    .replaceFirst("^/", "");
                 try {
                     dispatcher.execute(msg, stack);
                 } catch (CommandSyntaxException e) {
