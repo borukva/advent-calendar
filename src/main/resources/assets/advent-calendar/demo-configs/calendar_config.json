@@ -2,6 +2,7 @@
   "allowExpired": true,
   "year": 2025,
   "month": 12,
+  "daysOffset": 0,
   "rewards": {
     "1": {
       "rewards": [{

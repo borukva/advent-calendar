@@ -33,15 +33,14 @@ public class GuiAdventCalendar extends SimpleGui {
     }
 
     private GuiElementBuilder getElement(int id) {
-        int day_id = id % 9 + 7 * (int) Math.floor((double) id / 9);
-
+        int day_id = (id % 9 + 7 * ((int) Math.floor((double) id / 9 - 1))) + AdventCalendar.configRepo.getDaysOffset();
         var reward = Calendar.getDay(day_id, this.player);
 
-        if ((id % 9 == 0 || id % 9 == 8) | (reward == null))
+        if ((id % 9 == 0 || id % 9 == 8 || id < 9) || (reward == null))
             return null;
 
         var element = new GuiElementBuilder(Items.PLAYER_HEAD)
-            .setName(Component.translatable(reward.name()))
+            .setName(reward.name())
             .setSkullOwner(reward.headTexture());
 
         if (reward.lore() != null)

@@ -35,6 +35,11 @@ public class JsonConfigRepository {
         return this.config.allowExpired;
     }
 
+    public Integer getDaysOffset() {
+        if (this.config.daysOffset == null) return 0;
+        return this.config.daysOffset;
+    }
+
     public @Nullable JsonConfigRepository.DayReward getReward(int day) {
         return this.config.rewards.get(Integer.toString(day));
     }
@@ -59,7 +64,7 @@ public class JsonConfigRepository {
         }
     }
 
-    public record Config(boolean allowExpired, int year, int month, Map<String, DayReward> rewards) {}
+    public record Config(boolean allowExpired, @Nullable Integer daysOffset, int year, int month, Map<String, DayReward> rewards) {}
     public record DayReward(
         ArrayList<Reward> rewards, @Nullable ArrayList<String> lore, @Nullable ArrayList<String> claimedLore
     ) {}

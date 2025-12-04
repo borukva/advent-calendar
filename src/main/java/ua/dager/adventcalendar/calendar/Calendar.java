@@ -4,11 +4,14 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import eu.pb4.placeholders.api.PlaceholderContext;
 import eu.pb4.placeholders.api.Placeholders;
 import net.minecraft.network.chat.Component;
+import org.jetbrains.annotations.NotNull;
 import ua.dager.adventcalendar.AdventCalendar;
+import ua.dager.adventcalendar.config.JsonConfigRepository;
 import ua.dager.adventcalendar.util.HeadTextures;
 import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -36,12 +39,41 @@ public class Calendar {
         if (claimed.contains(day)) {
             return new DayReward(
                 HeadTextures.GIFT_CLAIMED,
-                "advent_calendar.gift_claimed",
+                Component.translatable("advent_calendar.gift_claimed"),
                 null,
                 reward.claimedLore() != null ? reward.claimedLore() : reward.lore()
             );
         }
 
+        DayReward claimableReward = getClaimableReward(player, reward);
+
+        if (today.getDayOfMonth() > day) {
+            if (AdventCalendar.configRepo.getAllowExpired()) {
+                return claimableReward;
+            }
+            return new DayReward(
+                HeadTextures.GIFT_UNAVAILABLE,
+                Component.translatable("advent_calendar.gift_unavailable"),
+                null,
+                reward.lore()
+            );
+        } else if (today.getDayOfMonth() == day) {
+            return claimableReward;
+        } else {
+            return new DayReward(
+                HeadTextures.GIFT_NOT_YET_AVAILABLE,
+                Component.translatable(
+                    "advent_calendar.gift_not_yet_available",
+                    day,
+                    Component.translatable("advent_calendar.month.%s".formatted(today.getMonth()).toLowerCase())
+                ),
+                null,
+                reward.lore()
+            );
+        }
+    }
+
+    private static @NotNull DayReward getClaimableReward(ServerPlayer player, JsonConfigRepository.DayReward reward) {
         Runnable callback = () -> {
             var placeholder_context = PlaceholderContext.of(player);
             var dispatcher = Objects.requireNonNull(player.getServer()).getCommands().getDispatcher();
@@ -58,34 +90,13 @@ public class Calendar {
             }
         };
 
-        DayReward claimableGift = new DayReward(
+        return new DayReward(
             HeadTextures.GIFT_CLAIMABLE,
-            "advent_calendar.gift_available",
+            Component.translatable("advent_calendar.gift_available"),
             callback,
             reward.lore()
         );
-
-        if (today.getDayOfMonth() > day) {
-            if (AdventCalendar.configRepo.getAllowExpired()) {
-                return claimableGift;
-            }
-            return new DayReward(
-                HeadTextures.GIFT_UNAVAILABLE,
-                "advent_calendar.gift_unavailable",
-                null,
-                reward.lore()
-            );
-        } else if (today.getDayOfMonth() == day) {
-            return claimableGift;
-        } else {
-            return new DayReward(
-                HeadTextures.GIFT_NOT_YET_AVAILABLE,
-                "advent_calendar.gift_not_yet_available",
-                null,
-                reward.lore()
-            );
-        }
     }
 
-    public record DayReward(String headTexture, String name, @Nullable Runnable callback, @Nullable ArrayList<String> lore) {}
+    public record DayReward(String headTexture, Component name, @Nullable Runnable callback, @Nullable ArrayList<String> lore) {}
 }

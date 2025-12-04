@@ -3,5 +3,6 @@
   "advent_calendar.gift_available": "Доступний подарунок!",
   "advent_calendar.gift_unavailable": "Подарунок недоступний",
   "advent_calendar.gift_claimed": "Подарунок вже отримано",
-  "advent_calendar.gift_not_yet_available": "Ще не час"
+  "advent_calendar.gift_not_yet_available": "Приходь %s %s",
+  "advent_calendar.month.december": "Грудня"
 }
