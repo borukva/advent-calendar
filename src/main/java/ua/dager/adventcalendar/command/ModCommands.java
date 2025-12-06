@@ -8,17 +8,18 @@ import ua.dager.adventcalendar.AdventCalendar;
 public class ModCommands {
     public static void register() {
         CommandRegistrationCallback.EVENT.register(
-            (dispatcher, commandRegistryAccess, registrationEnvironment) -> dispatcher.register(
-                Commands.literal("calendar")
-                    .executes(AdventCalendarMainCommand::run)
-            )
+                (dispatcher, commandRegistryAccess, registrationEnvironment) -> dispatcher.register(
+                        Commands.literal("calendar")
+                                .requires(Permissions.require(AdventCalendar.MOD_ID + ".open_gui", 4))
+                                .executes(AdventCalendarMainCommand::run)
+                )
         );
         CommandRegistrationCallback.EVENT.register(
-            (dispatcher, commandRegistryAccess, registrationEnvironment) -> dispatcher.register(
-                Commands.literal("calendar_reload")
-                    .requires(Permissions.require(AdventCalendar.MOD_ID + ".command.reload_config", 4))
-                    .executes(AdventCalendarReloadCommand::run)
-            )
+                (dispatcher, commandRegistryAccess, registrationEnvironment) -> dispatcher.register(
+                        Commands.literal("calendar_reload")
+                                .requires(Permissions.require(AdventCalendar.MOD_ID + ".command.reload_config", 4))
+                                .executes(AdventCalendarReloadCommand::run)
+                )
         );
     }
 }
