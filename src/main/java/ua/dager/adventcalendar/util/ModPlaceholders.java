@@ -11,7 +11,7 @@ public class ModPlaceholders {
             (ctx, arg) -> {
                 if (ctx.player() == null)
                     return PlaceholderResult.invalid("No player!");
-                return PlaceholderResult.value(ctx.player().getDisplayName());
+                return PlaceholderResult.value(ctx.player().getScoreboardName());
             }
         );
     }
