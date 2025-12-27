@@ -76,8 +76,9 @@ public class Calendar {
     private static @NotNull DayReward getClaimableReward(ServerPlayer player, JsonConfigRepository.DayReward reward) {
         Runnable callback = () -> {
             var placeholder_context = PlaceholderContext.of(player);
-            var dispatcher = Objects.requireNonNull(player.getServer()).getCommands().getDispatcher();
-            var stack = player.getServer().createCommandSourceStack();
+            var server = player.level().getServer();
+            var dispatcher = server.getCommands().getDispatcher();
+            var stack = server.createCommandSourceStack();
             for (var r : reward.rewards()) {
                 var msg = Placeholders.parseText(Component.literal(r.command()), placeholder_context)
                     .getString()

@@ -1,6 +1,6 @@
 package ua.dager.adventcalendar.command;
 
-import com.mojang.authlib.GameProfile;
+import net.minecraft.server.players.NameAndId;
 import ua.dager.adventcalendar.gui.GuiAdventCalendar;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
@@ -15,7 +15,7 @@ public class AdventCalendarMainCommand {
             .getServer()
             .getPlayerList()
             .getWhiteList()
-            .isWhiteListed(new GameProfile(player.getUUID(), player.getName().getString()))
+            .isWhiteListed(new NameAndId(player.getGameProfile()))
         ) return 0;
 
         GuiAdventCalendar gui = new GuiAdventCalendar(player);

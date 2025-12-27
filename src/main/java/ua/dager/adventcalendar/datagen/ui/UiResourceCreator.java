@@ -6,6 +6,7 @@ import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import it.unimi.dsi.fastutil.chars.Char2IntMap;
 import it.unimi.dsi.fastutil.chars.Char2IntOpenHashMap;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FontDescription;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import ua.dager.adventcalendar.AdventCalendar;
@@ -21,7 +22,7 @@ import static ua.dager.adventcalendar.AdventCalendar.id;
 
 
 public class UiResourceCreator {
-    public static final Style STYLE = Style.EMPTY.withColor(0xFFFFFF).withFont(id("gui"));
+    public static final Style STYLE = Style.EMPTY.withColor(0xFFFFFF).withFont(new FontDescription.Resource(id("gui")));
     private static char character = 'a';
     private static final Char2IntMap SPACES = new Char2IntOpenHashMap();
     private static final List<FontTexture> FONT_TEXTURES = new ArrayList<>();
